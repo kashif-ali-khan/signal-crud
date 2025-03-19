@@ -1,0 +1,8 @@
+<app-contact-form
+  [title]="title()"
+  (save)="onSave($event)"
+></app-contact-form>
+
+@if(saving()){
+<mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+}
