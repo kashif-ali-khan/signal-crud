@@ -1,11 +1,11 @@
 <mat-toolbar>
   <span>Signal CRUD</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button [routerLink]="['/add']">
+  <button matTooltip="Normal Signal" mat-icon-button [routerLink]="['/add']">
     <mat-icon>add_circle</mat-icon>
   </button>
-  <button matTooltip="Signal Store" mat-icon-button [routerLink]="['/signal-store']">
-    <mat-icon>traffic</mat-icon>
+  <button matTooltip="Ngrx Signal Store" mat-icon-button [routerLink]="['/signal-store']">
+    <mat-icon >traffic</mat-icon>
   </button>
 </mat-toolbar>
 <router-outlet />

@@ -47,9 +47,9 @@ html {
   );
   @include mat.form-field-overrides(
     (
-      container-color: white,
+      filled-container-color: white,
       hover-state-layer-opacity: 0,
-      hover-active-indicator-color: mat.get-theme-color($theme, primary, 100)
+      filled-hover-active-indicator-color: mat.get-theme-color($theme, primary, 100)
     )
   );
 }

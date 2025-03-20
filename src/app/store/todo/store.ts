@@ -7,7 +7,7 @@ import {
   withHooks,
 } from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
-import { UserService } from '../../services/user.service';
+import { TodoService } from '../../services/todo.service';
 
 export type Todo = {
   id: string;
@@ -61,7 +61,7 @@ export const TodoSignalStore = signalStore(
     }
  })),
  */
-  withMethods((store, service = inject(UserService)) => ({
+  withMethods((store, service = inject(TodoService)) => ({
     async loadTodos(): Promise<void> {
       const todos = await service.getTodos().toPromise();
       patchState(store, (state) => {
