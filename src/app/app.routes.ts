@@ -14,5 +14,9 @@ export const routes: Routes = [
     {
         path: 'edit/:id',
         loadComponent: () => import('./components/edit-contact/edit-contact.component').then(m => m.EditContactComponent)
+    },
+    {
+        path: 'signal-store',
+        loadComponent: () => import('./components/signal-store-todo/signal-store-todo.component').then(m => m.SignalStoreTodoComponent)
     }
 ];
