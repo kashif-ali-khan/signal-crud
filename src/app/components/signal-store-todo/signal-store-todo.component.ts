@@ -105,10 +105,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     </div>
   `,
   styles: `
-   .container {
-      max-width: 800px;
-      margin: 20px auto;
-    }
+
     
     .form-container {
       display: flex;
