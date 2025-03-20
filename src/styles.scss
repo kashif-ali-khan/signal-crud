@@ -1,6 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @use "@angular/material" as mat;
 
+$theme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette
+    ),
+    typography: (
+      plain-family: Roboto,
+      brand-family: sans-serif,
+      bold-weight: 900,
+      medium-weight: 400,
+      regular-weight: 400,
+      use-system-variables: true,
+    system-variables-prefix: sys,
+    )
+  )
+);
+
 html {
   @include mat.theme(
     (
@@ -19,12 +37,21 @@ html {
       )
     );
 
-    @include mat.icon-button-overrides(
-      (
-        icon-color: var(--mat-sys-on-primary),
-      )
-    );
+   
+   
   }
+  @include mat.icon-button-overrides(
+    (
+      icon-color: var(--mat-sys-on-primary),
+    )
+  );
+  @include mat.form-field-overrides(
+    (
+      container-color: white,
+      hover-state-layer-opacity: 0,
+      hover-active-indicator-color: mat.get-theme-color($theme, primary, 100)
+    )
+  );
 }
 
 
@@ -36,4 +63,5 @@ mat-progress-spinner {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} 
+

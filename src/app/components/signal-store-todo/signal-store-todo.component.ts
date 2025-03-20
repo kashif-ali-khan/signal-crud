@@ -25,6 +25,9 @@ import { MatCardModule } from '@angular/material/card';
   template: `
   <div class="container">
   <mat-card >
+    <mat-card-header  >
+      <mat-card-title>This is a signal store todo list, which is a package of &#x40;ngrx/store</mat-card-title>
+    </mat-card-header>
        
         <mat-card-content>
     <form (ngSubmit)="addTodo()" class="form-container">
@@ -33,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
         <input
           placeholder="Enter Todo"
           type="text"
+          required
           matInput
           [(ngModel)]="title"
           name="title"
@@ -85,8 +89,9 @@ import { MatCardModule } from '@angular/material/card';
       display: flex;
       gap: 16px;
       margin-bottom: 16px;
+      margin-top: 16px;
       align-items: center;
-     // justify-content: center;
+     justify-content: center;
     }
     
     .item-input {
