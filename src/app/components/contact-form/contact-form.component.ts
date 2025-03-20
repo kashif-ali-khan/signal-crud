@@ -9,7 +9,7 @@ import { Contact } from '../../models/contact';
   selector: 'app-contact-form',
   imports: [RouterLink, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   template: `
-    <h2>{{ title() }} contact</h2>
+    <h2>{{ title() }} </h2>
 <form class="form" (ngSubmit)="onSave()">
   <div class="fields">
     <mat-form-field>

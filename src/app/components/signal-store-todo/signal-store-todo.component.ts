@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-signal-store-todo',
   imports: [
@@ -21,63 +22,87 @@ import { MatCardModule } from '@angular/material/card';
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   template: `
-  <div class="container">
-  <mat-card >
-    <mat-card-header  >
-      <mat-card-title>This is a signal store todo list, which is a package of &#x40;ngrx/store</mat-card-title>
-    </mat-card-header>
-       
-        <mat-card-content>
-    <form (ngSubmit)="addTodo()" class="form-container">
-      <mat-form-field>
-        <mat-label>Todo title</mat-label>
-        <input
-          placeholder="Enter Todo"
-          type="text"
-          required
-          matInput
-          [(ngModel)]="title"
-          name="title"
-        />
-      </mat-form-field>
-      <button mat-flat-button type="submit">Add Todo</button>
-    </form>
-    <mat-divider></mat-divider>
-    <h2 style="text-align:center;">Todo  List</h2>
-    <mat-divider></mat-divider>
+    <div class="container">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title
+            >This is a signal store todo list, which is a package of
+            &#x40;ngrx/store</mat-card-title
+          >
+        </mat-card-header>
 
-    <mat-selection-list #shoes (selectionChange)="onSelectionChange($event)">
-      @for (todo of todoStore.todos(); track todo.id) {
-      <mat-list-option [value]="todo.id" [selected]="todo.completed" [ngClass]="{ completed: todo.completed }">
-        <span matListItemTitle>{{ todo.title }}</span>
-        <!--<button matListItemMeta mat-icon-button color="warn" 
+        <mat-card-content>
+          <form (ngSubmit)="addTodo()" class="form-container">
+            <mat-form-field>
+              <mat-label>Todo title</mat-label>
+              <input
+                placeholder="Enter Todo"
+                type="text"
+                required
+                matInput
+                [(ngModel)]="title"
+                name="title"
+              />
+            </mat-form-field>
+            <button mat-flat-button type="submit">Add Todo</button>
+          </form>
+          <mat-divider></mat-divider>
+          @if(todoStore.loading()) {
+          <mat-progress-spinner
+            mode="indeterminate"
+            diameter="50"
+          ></mat-progress-spinner>
+          } @else {
+          <h2 style="text-align:center;">Todo List</h2>
+          <mat-divider></mat-divider>
+
+          <mat-selection-list
+            #shoes
+            (selectionChange)="onSelectionChange($event)"
+          >
+            @for (todo of todoStore.todos(); track todo.id) {
+            <mat-list-option
+              [value]="todo.id"
+              [selected]="todo.completed"
+              [ngClass]="{ completed: todo.completed }"
+            >
+              <span matListItemTitle>{{ todo.title }}</span>
+              <!--<button matListItemMeta mat-icon-button color="warn" 
                   (click)="deleteItem(todo.id, $event)" 
                   class="delete-button">
             <mat-icon>delete</mat-icon>
           </button>-->
-      </mat-list-option>
-      }
-    </mat-selection-list>
-    <div *ngIf="todoStore.todos().length === 0" class="empty-state">
+            </mat-list-option>
+            }
+          </mat-selection-list>
+          }
+          <div *ngIf="todoStore.todos().length === 0" class="empty-state">
             No items available. Add a new item above.
           </div>
         </mat-card-content>
         <mat-card-actions>
-         <button mat-button color="primary" [disabled]="hasSelection() === totalCount()" (click)="selectAll()">
+          <button
+            mat-button
+            color="primary"
+            [disabled]="hasSelection() === totalCount()"
+            (click)="selectAll()"
+          >
             Select All
           </button>
-    
-          <button mat-button  [disabled]="hasSelection() === 0" 
-                  (click)="deleteSelected()">
+
+          <button
+            mat-button
+            [disabled]="hasSelection() === 0"
+            (click)="deleteSelected()"
+          >
             Delete Selected
           </button>
         </mat-card-actions>
       </mat-card>
-
-
-  </div>
+    </div>
   `,
   styles: `
    .container {
@@ -146,7 +171,7 @@ export class SignalStoreTodoComponent {
 
   deleteItem(id: string, event: Event) {
     event.stopPropagation();
-   // this.todoStore.deleteTodo(i);
+    // this.todoStore.deleteTodo(i);
   }
 
   selectAll() {

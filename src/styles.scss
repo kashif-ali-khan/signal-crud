@@ -36,15 +36,16 @@ html {
         container-text-color: var(--mat-sys-on-primary),
       )
     );
-
+    @include mat.icon-button-overrides(
+      (
+        icon-color: var(--mat-sys-on-primary),
+      )
+    );
    
    
   }
-  @include mat.icon-button-overrides(
-    (
-      icon-color: var(--mat-sys-on-primary),
-    )
-  );
+ /* 
+  
   @include mat.form-field-overrides(
     (
       filled-container-color: white,
@@ -52,6 +53,7 @@ html {
       filled-hover-active-indicator-color: mat.get-theme-color($theme, primary, 100)
     )
   );
+  */
 }
 
 
@@ -59,9 +61,9 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 mat-progress-spinner {
-  position: absolute !important;
+  //position: absolute !important;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  //transform: translate(-50%, -50%);
 } 
 

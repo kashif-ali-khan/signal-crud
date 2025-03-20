@@ -7,7 +7,9 @@ import {
   withHooks,
 } from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
+
 import { TodoService } from '../../services/todo.service';
+import { lastValueFrom, delay } from 'rxjs';
 
 export type Todo = {
   id: string;
@@ -17,28 +19,14 @@ export type Todo = {
 
 type TodoState = {
   todos: Todo[];
+  loading: boolean;
 };
 
-const todos = [
-  {
-    id: '1',
-    title: 'Buy groceries',
-    completed: false,
-  },
-  {
-    id: '2',
-    title: 'Buy Fruits',
-    completed: false,
-  },
-  {
-    id: '3',
-    title: 'Buy vegetables',
-    completed: false,
-  },
-];
+
 
 export const initialState: TodoState = {
-  todos: todos,
+  todos: [],
+  loading: false,
 };
 
 export const TodoSignalStore = signalStore(
@@ -63,10 +51,16 @@ export const TodoSignalStore = signalStore(
  */
   withMethods((store, service = inject(TodoService)) => ({
     async loadTodos(): Promise<void> {
-      const todos = await service.getTodos().toPromise();
+      patchState(store, (state) => {
+        return {
+          loading: true,
+        };
+      });
+      const todos = await lastValueFrom(service.getTodos().pipe(delay(2000)))
       patchState(store, (state) => {
         return {
           todos: todos?.slice(0, 20),
+          loading: false,
         };
       });
     },
