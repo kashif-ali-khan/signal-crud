@@ -14,15 +14,15 @@ import { Contact } from '../../models/contact';
   <div class="fields">
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput name="name" [(ngModel)]="name" />
+      <input required matInput name="name" [(ngModel)]="name" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput name="email" [(ngModel)]="email" />
+      <input required matInput name="email" [(ngModel)]="email" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Phone</mat-label>
-      <input matInput name="phone" [(ngModel)]="phone" />
+      <input required matInput name="phone" [(ngModel)]="phone" />
     </mat-form-field>
   </div>
   <div class="actions">
@@ -70,6 +70,9 @@ export class ContactFormComponent {
   phone = linkedSignal<string>(() => this.contact()?.phone || '');
 
   onSave() {
+    if (!this.name() || !this.email() || !this.phone()) {
+      return;
+    }
     this.save.emit({
       id: this.contact()?.id || '',
       name: this.name(),
